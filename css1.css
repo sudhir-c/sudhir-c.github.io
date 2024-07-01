@@ -1,0 +1,104 @@
+body {
+    background-image: linear-gradient(rgb(248, 228, 204), rgb(21, 52, 150));
+    margin-top: 5%;
+}
+
+.horizontal div {
+    float: right;
+    clear: none;
+    padding-top: 10%;
+    padding-right: 5%;
+}
+
+div.spacing {
+  padding: 25px 50px 75px 100px;
+}
+
+iframe {
+  display: block;
+  border-style:none;
+}
+
+a {
+  color: white;
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 150%;
+  font-family: verdana;
+  margin: auto;
+}
+
+a:hover {
+  color: gray;
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 200%;
+  font-family: verdana;
+  margin: auto;
+}
+
+a:active {
+  color: gray;
+  float: right;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 200%;
+  font-family: verdana;
+  margin: auto;
+}
+
+img.socials {
+  margin-left: auto; 
+  margin-right: auto;
+  display: block;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: fit-content;
+    text-align: right;
+  }
+
+  .bouncingText {
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 200%;
+    font-weight: bold;
+    font-family: verdana;
+    margin: auto;
+    width: 30%;
+    word-wrap: break-word;
+  }
+
+@keyframes fadeIn {
+  from {opacity: 0%;}
+  to {opacity: 100%;}
+}
+
+#uniquepictureID {
+  opacity: 0.0;
+  animation: fadeIn;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+
+  

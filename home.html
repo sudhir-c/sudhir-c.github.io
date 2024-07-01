@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="css1.css">
+<html>
+    <head>
+    </head>
+    <div class="navbar">
+        <a href="home.html">Home</a>
+        <a href="socials.html">Socials</a>
+        <a href="yt.html">YouTube Features</a>
+    </div>
+<body>
+    <div class="horizontal">
+        <img id="uniquepictureID" src="image_2.jpg" alt="Picture of Sudhir" height="70%"/>
+        <div class="bouncingText">&#128075 Hey, I'm Sudhir. I'm a rising senior at Henry M Jackson high school in Mill Creek, WA. In my free time, you can find me with my school's robotics team, or practicing one of the two instruments I play. </div>
+    </div>
+    <script>
+        let imageIndex = 0;
+        let images = ["image_2.jpg", "image_3.jpg", "image_4.jpg"];
+        imageChanger(); 
+
+        function imageChanger() {
+            if (imageIndex >= images.length) {
+                imageIndex = 0; 
+            }
+            document.getElementById("uniquepictureID").src = images[imageIndex];
+            imageIndex++; 
+            setTimeout(imageChanger, 3000);
+        }
+    </script>
+</body>
+</html>
