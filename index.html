@@ -544,8 +544,8 @@
     <a href="#about" class="nav-name">Sudhir Chebiyyam</a>
     <ul class="nav-links">
       <li><a href="#about">about</a></li>
-      <li><a href="#robotics">robotics</a></li>
-      <li><a href="#work">work</a></li>
+      <li><a href="#robots">robots</a></li>
+      <li><a href="#videos">videos</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
   </nav>
@@ -558,7 +558,7 @@
       <!-- sidebar -->
       <div class="profile-sidebar slide-in-left">
         <div class="profile-img-wrap">
-          <img id="profileImg" src="image_1.jpg" alt="Sudhir Chebiyyam" />
+          <img id="profileImg" src="image_4.jpg" alt="Sudhir Chebiyyam" />
         </div>
         <div class="profile-sidebar-text" style="display:contents;">
           <span class="profile-name-label">Sudhir Chebiyyam</span>
@@ -591,7 +591,7 @@
     </section>
 
     <!-- ── ROBOTICS ───────────────────────────────── -->
-    <section id="robotics" class="section-shell">
+    <section id="robots" class="section-shell">
       <div class="section-inner">
         <div class="section-eyebrow slide-in-up">
           <span class="eyebrow-label">FRC 2910 · Jack in the Bot</span>
@@ -613,7 +613,7 @@
     </section>
 
     <!-- ── YOUTUBE FEATURES ───────────────────────── -->
-    <section id="work" class="section-shell">
+    <section id="videos" class="section-shell">
       <div class="section-inner">
         <div class="section-eyebrow slide-in-up">
           <span class="eyebrow-label">YouTube Features</span>
@@ -707,19 +707,6 @@
   </footer>
 
   <script>
-    // ── PROFILE IMAGE CYCLING ──────────────────────
-    const profileImg   = document.getElementById('profileImg');
-    const profileImgs  = ['image_1.jpg', 'image_4.jpg'];
-    let   pIdx         = 0;
-
-    setInterval(() => {
-      profileImg.style.opacity = '0';
-      setTimeout(() => {
-        pIdx = (pIdx + 1) % profileImgs.length;
-        profileImg.src = profileImgs[pIdx];
-        profileImg.style.opacity = '1';
-      }, 400);
-    }, 4500);
 
     // ── VIDEO TABS ─────────────────────────────────
     const vtabs      = document.querySelectorAll('.vtab');
