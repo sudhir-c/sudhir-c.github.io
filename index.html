@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sudhir Chebiyyam</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 
     :root {
-      --bg:         #07090D;
-      --surface:    #0D1117;
-      --surface-2:  #141A24;
-      --accent:     #BEFF00;
-      --accent-dim: rgba(190, 255, 0, 0.12);
-      --text:       #EDF0F4;
-      --muted:      #55606E;
-      --border:     #1B2232;
+      --bg:            #111111;
+      --surface:       #1a1a1a;
+      --surface-2:     #222222;
+      --text:          #e0e0e0;
+      --text-dim:      #adadad;
+      --muted:         #6e6e6e;
+      --accent:        rgb(15, 158, 252);
+      --accent-dim:    rgba(15, 158, 252, 0.10);
+      --accent-border: rgba(15, 158, 252, 0.28);
+      --border:        #2c2c2c;
+      --border-light:  #383838;
     }
 
     *, *::before, *::after {
@@ -24,734 +27,677 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--bg);
-      background-image:
-        radial-gradient(ellipse 90% 55% at 60% -10%, rgba(190, 255, 0, 0.07) 0%, transparent 65%),
-        radial-gradient(circle, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-      background-size: 100% 100%, 30px 30px;
+      background: var(--bg);
       color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 16px;
-      line-height: 1.6;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.75;
       overflow-x: hidden;
     }
 
-    /* ── NAV ─────────────────────────────────── */
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 200ms ease;
+    }
+    a:hover { opacity: 0.8; }
+
+    /* ─── SLIDE ANIMATIONS ────────────────────── */
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .slide-in-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .slide-in-left.visible,
+    .slide-in-right.visible,
+    .slide-in-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .delay-1 { transition-delay: 80ms; }
+    .delay-2 { transition-delay: 160ms; }
+    .delay-3 { transition-delay: 240ms; }
+
+    /* ─── NAVIGATION ──────────────────────────── */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
+      top: 0; left: 0; right: 0;
+      z-index: 300;
+      height: 52px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 3rem;
-      background: rgba(7, 9, 13, 0.92);
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(17, 17, 17, 0.96);
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-      color: var(--accent);
+    .nav-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
       text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 200ms ease;
     }
+    .nav-name:hover { color: var(--accent); opacity: 1; }
 
     .nav-links {
-      display: flex;
-      gap: 2.5rem;
       list-style: none;
+      display: flex;
     }
 
     .nav-links a {
+      display: block;
+      padding: 0 0.9rem;
+      height: 52px;
+      line-height: 52px;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 160ms ease-out;
+      border-bottom: 2px solid transparent;
+      transition: color 200ms ease, border-color 200ms ease;
+      margin-bottom: -1px;
     }
-
     .nav-links a:hover {
       color: var(--text);
+      opacity: 1;
+    }
+    .nav-links a.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
-    section {
-      scroll-margin-top: 5rem;
+    /* ─── ABOUT ───────────────────────────────── */
+    #about {
+      padding: 7.5rem 2.5rem 5rem;
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 5rem;
+      align-items: start;
     }
 
-    /* ── HERO ────────────────────────────────── */
-    #hero {
-      min-height: 100vh;
+    /* sidebar */
+    .profile-sidebar {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 9rem 3rem 5rem;
-      position: relative;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .profile-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
       overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 200ms ease;
+    }
+    .profile-img-wrap:hover { border-color: var(--accent-border); }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.4s ease;
     }
 
-    .hero-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.75rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease-out 0.1s forwards;
-    }
-
-    .hero-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(5.5rem, 19vw, 19rem);
-      line-height: 0.87;
-      letter-spacing: -0.045em;
+    .profile-name-label {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-align: center;
       color: var(--text);
-      margin-left: -0.05em;
-      margin-bottom: 3rem;
-      opacity: 0;
-      animation: fadeUp 0.75s ease-out 0.28s forwards;
+      letter-spacing: -0.01em;
     }
 
-    .hero-name .dot {
-      color: var(--accent);
+    .profile-affiliation {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
     }
 
-    .hero-meta {
+    .profile-social-links {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      max-width: 540px;
-      opacity: 0;
-      animation: fadeUp 0.75s ease-out 0.5s forwards;
+      gap: 0.45rem;
+      width: 100%;
+      margin-top: 0.25rem;
     }
 
-    .hero-location {
-      font-size: 0.82rem;
-      color: var(--muted);
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.69rem;
       letter-spacing: 0.04em;
+      transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+    }
+    .social-btn:hover {
+      border-color: var(--accent-border);
+      color: var(--accent);
+      background: var(--accent-dim);
+      opacity: 1;
+    }
+    .social-btn .icon {
+      font-size: 0.8rem;
+      flex-shrink: 0;
     }
 
-    .hero-tags {
+    /* content */
+    .about-content {
+      padding-top: 0.25rem;
+    }
+
+    .about-greeting {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    .about-greeting .hi { color: var(--accent); }
+
+    .about-bio {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.9;
+      margin-bottom: 1.75rem;
+    }
+    .about-bio a {
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent-border);
+      transition: border-color 200ms ease;
+    }
+    .about-bio a:hover {
+      border-color: var(--accent);
+      opacity: 1;
+    }
+
+    .interests-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
+      gap: 0.4rem;
     }
 
     .tag {
       display: inline-block;
-      padding: 0.28rem 0.7rem;
+      padding: 0.22rem 0.6rem;
+      background: var(--surface);
       border: 1px solid var(--border);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: all 160ms ease-out;
+      font-size: 0.67rem;
+      color: var(--text-dim);
+      letter-spacing: 0.03em;
+      transition: border-color 200ms ease, color 200ms ease;
     }
-
     .tag:hover {
-      border-color: var(--accent);
+      border-color: var(--accent-border);
       color: var(--accent);
-      transform: translateY(-2px);
     }
 
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      margin-top: 2.5rem;
-      padding: 0.85rem 1.6rem;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      width: fit-content;
-      transition: all 160ms ease-out;
+    /* ─── SECTION SHELL ───────────────────────── */
+    .section-shell {
+      border-top: 1px solid var(--border);
     }
 
-    .hero-cta:hover {
-      background: var(--accent);
-      color: var(--bg);
-      transform: translateY(-3px);
-    }
-
-    .hero-scroll-hint {
-      position: absolute;
-      bottom: 2.5rem;
-      right: 3rem;
-      writing-mode: vertical-rl;
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      opacity: 0;
-      animation: fadeUp 0.6s ease-out 0.85s forwards;
-    }
-
-    /* ── ABOUT ───────────────────────────────── */
-    #about {
-      padding: 9rem 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 6rem;
-      align-items: start;
-      max-width: 1200px;
+    .section-inner {
+      padding: 4rem 2.5rem;
+      max-width: 1080px;
       margin: 0 auto;
-    }
-
-    .about-image-wrap {
-      position: relative;
-      padding-right: 14px;
-      padding-bottom: 14px;
-    }
-
-    .about-image-wrap::after {
-      content: '';
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      right: 0;
-      bottom: 0;
-      border: 1px solid rgba(190, 255, 0, 0.2);
-      pointer-events: none;
-    }
-
-    .about-image-wrap img {
-      width: 100%;
-      display: block;
-      position: relative;
-      z-index: 1;
-      filter: grayscale(25%);
-      transition: filter 160ms ease-out, transform 160ms ease-out, opacity 0.35s ease;
-    }
-
-    .about-image-wrap:hover img {
-      filter: grayscale(0%);
-      transform: translate(-5px, -5px);
-    }
-
-    .about-content {
-      padding-top: 4rem;
     }
 
     .section-eyebrow {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      font-size: 0.64rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
     }
 
-    .section-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 2rem;
+    .eyebrow-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .eyebrow-rule {
+      flex: 1;
       height: 1px;
-      background: var(--accent);
-      flex-shrink: 0;
+      background: var(--border);
     }
 
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2.2rem, 4.5vw, 3.75rem);
-      line-height: 1.05;
-      letter-spacing: -0.035em;
-      margin-bottom: 1.75rem;
-    }
-
-    .about-bio {
+    .eyebrow-sub {
+      font-size: 0.67rem;
       color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.85;
     }
 
-    .about-stats {
+    /* ─── ROBOTICS GALLERY ────────────────────── */
+    .robot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .robot-cell {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 200ms ease;
+    }
+    .robot-cell:hover { border-color: var(--accent-border); }
+
+    .robot-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(10%);
+      transition: filter 250ms ease, transform 350ms ease;
+    }
+    .robot-cell:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.04);
+    }
+
+    /* ─── YOUTUBE / WORK ──────────────────────── */
+    .video-tabs-row {
       display: flex;
-      gap: 2.5rem;
-      margin-top: 2.75rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+      gap: 0;
     }
 
-    .stat {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 2.4rem;
-      color: var(--accent);
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
-    .stat-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
+    .vtab {
+      padding: 0.55rem 1.1rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
+      cursor: pointer;
+      transition: color 200ms ease, border-color 200ms ease;
+    }
+    .vtab:hover { color: var(--text); }
+    .vtab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
-    /* ── FEATURED ────────────────────────────── */
-    #featured {
-      padding: 9rem 3rem;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .featured-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .featured-header {
-      margin-bottom: 5rem;
-    }
-
-    .videos-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 6rem;
-    }
-
-    .video-card {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 3.5rem;
-      align-items: center;
-      opacity: 0;
-      transform: translateY(48px);
-      transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .video-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .video-card:nth-child(even) {
-      grid-template-columns: 2fr 3fr;
-    }
-
-    .video-card:nth-child(even) .video-embed {
-      order: 2;
-    }
-
-    .video-card:nth-child(even) .video-info {
-      order: 1;
-      text-align: right;
-      align-items: flex-end;
-    }
-
-    .video-embed {
-      width: 100%;
+    .video-stage {
       aspect-ratio: 16 / 9;
+      width: 100%;
+      background: var(--surface);
       border: 1px solid var(--border);
-      transition: border-color 160ms ease-out, transform 160ms ease-out, box-shadow 160ms ease-out;
       overflow: hidden;
     }
 
-    .video-embed:hover {
-      border-color: rgba(190, 255, 0, 0.4);
-      transform: translateY(-5px);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-    }
-
-    .video-embed iframe {
+    .video-stage iframe {
       width: 100%;
       height: 100%;
       display: block;
       border: none;
     }
 
-    .video-info {
+    .video-caption {
+      margin-top: 0.75rem;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.9rem;
-    }
-
-    .video-num {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 5.5rem;
-      color: var(--border);
-      line-height: 1;
-      letter-spacing: -0.06em;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .video-badge {
       display: inline-block;
-      padding: 0.26rem 0.65rem;
-      background: var(--accent-dim);
-      border: 1px solid rgba(190, 255, 0, 0.28);
-      color: var(--accent);
+      padding: 0.18rem 0.5rem;
       font-size: 0.62rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
     }
 
-    .video-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
+    .video-caption-title {
+      font-size: 0.76rem;
+      color: var(--text-dim);
     }
 
-    .video-desc {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    /* ── CONNECT ─────────────────────────────── */
-    #connect {
-      padding: 9rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .connect-grid {
+    /* ─── CONTACT ─────────────────────────────── */
+    .contact-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 4rem;
+      gap: 0.85rem;
+      margin-top: 0.5rem;
     }
 
-    .connect-card {
+    .contact-card {
       display: flex;
       flex-direction: column;
-      padding: 2rem 2rem 2.5rem;
+      gap: 0.25rem;
+      padding: 1.25rem 1.25rem 1.5rem;
       border: 1px solid var(--border);
       text-decoration: none;
       color: var(--text);
+      background: var(--surface);
+      transition: border-color 200ms ease, transform 200ms ease, background 200ms ease;
       position: relative;
-      overflow: hidden;
-      transition: border-color 160ms ease-out, background 160ms ease-out, transform 160ms ease-out;
     }
-
-    .connect-card::after {
+    .contact-card:hover {
+      border-color: var(--accent-border);
+      background: var(--surface-2);
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+    .contact-card::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 2px;
       background: var(--accent);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 160ms ease-out;
+      transition: transform 200ms ease;
     }
+    .contact-card:hover::after { transform: scaleX(1); }
 
-    .connect-card:hover {
-      border-color: rgba(190, 255, 0, 0.25);
-      background: var(--surface-2);
-      transform: translateY(-5px);
-    }
-
-    .connect-card:hover::after {
-      transform: scaleX(1);
-    }
-
-    .connect-arrow {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      font-size: 1rem;
-      color: var(--muted);
-      transition: color 160ms ease-out, transform 160ms ease-out;
-    }
-
-    .connect-card:hover .connect-arrow {
-      color: var(--accent);
-      transform: translate(3px, -3px);
-    }
-
-    .connect-platform {
+    .card-platform {
       font-size: 0.62rem;
-      letter-spacing: 0.16em;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 0.85rem;
     }
-
-    .connect-name {
-      font-family: 'Syne', sans-serif;
+    .card-name {
+      font-size: 1rem;
       font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: -0.025em;
-      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
     }
-
-    .connect-handle {
-      font-size: 0.72rem;
+    .card-handle {
+      font-size: 0.7rem;
       color: var(--muted);
-      margin-top: 0.25rem;
+      margin-top: 0.1rem;
+    }
+    .card-arrow {
+      position: absolute;
+      top: 1.1rem; right: 1.1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: color 200ms ease, transform 200ms ease;
+    }
+    .contact-card:hover .card-arrow {
+      color: var(--accent);
+      transform: translate(2px, -2px);
     }
 
-    /* ── FOOTER ──────────────────────────────── */
+    /* ─── FOOTER ──────────────────────────────── */
     footer {
-      padding: 2rem 3rem;
       border-top: 1px solid var(--border);
+      padding: 1.25rem 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      max-width: 1080px;
+      margin: 0 auto;
     }
 
-    .footer-text {
-      font-size: 0.68rem;
+    .footer-txt {
+      font-size: 0.67rem;
       color: var(--muted);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
     }
 
-    /* ── ANIMATIONS ──────────────────────────── */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ── RESPONSIVE ──────────────────────────── */
-    @media (max-width: 900px) {
-      nav {
-        padding: 1rem 1.5rem;
-      }
-
-      #hero {
-        padding: 7rem 1.5rem 4rem;
-      }
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 0 1.5rem; }
 
       #about {
         grid-template-columns: 1fr;
-        gap: 3rem;
-        padding: 6rem 1.5rem;
+        gap: 2.25rem;
+        padding: 6.5rem 1.5rem 3.5rem;
       }
 
-      .about-content {
-        padding-top: 0;
-      }
-
-      #featured {
-        padding: 6rem 1.5rem;
-      }
-
-      .video-card,
-      .video-card:nth-child(even) {
-        grid-template-columns: 1fr;
-      }
-
-      .video-card:nth-child(even) .video-embed {
-        order: 0;
-      }
-
-      .video-card:nth-child(even) .video-info {
-        order: 0;
-        text-align: left;
+      .profile-sidebar {
+        flex-direction: row;
         align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1.25rem;
       }
-
-      .video-num {
-        font-size: 3.5rem;
+      .profile-img-wrap {
+        width: 110px;
+        height: 110px;
+        flex-shrink: 0;
       }
-
-      #connect {
-        padding: 6rem 1.5rem;
-      }
-
-      .connect-grid {
-        grid-template-columns: 1fr;
-      }
-
-      footer {
-        padding: 1.5rem;
+      .profile-sidebar-text {
+        display: flex;
         flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+        gap: 0.3rem;
+        flex: 1;
+        min-width: 160px;
       }
+      .profile-name-label,
+      .profile-affiliation { text-align: left; }
+      .profile-social-links { flex-direction: row; flex-wrap: wrap; }
+      .social-btn { flex: 1; min-width: 120px; }
+
+      .section-inner { padding: 3rem 1.5rem; }
+
+      .robot-grid { grid-template-columns: 1fr 1fr; }
+      .contact-cards { grid-template-columns: 1fr; }
+
+      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.4rem; text-align: center; }
     }
 
     @media (max-width: 480px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hero-name {
-        font-size: clamp(4.5rem, 23vw, 8rem);
-      }
-
-      .about-stats {
-        gap: 1.75rem;
-      }
-
-      .stat-num {
-        font-size: 2rem;
-      }
+      .nav-links { display: none; }
+      .robot-grid { grid-template-columns: 1fr; }
+      .about-greeting { font-size: 1.3rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── NAV ─────────────────────────────────── -->
+  <!-- ── NAV ──────────────────────────────────── -->
   <nav>
-    <a href="#hero" class="nav-logo">SC</a>
+    <a href="#about" class="nav-name">Sudhir Chebiyyam</a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#featured">Featured</a></li>
-      <li><a href="#connect">Connect</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#robotics">robotics</a></li>
+      <li><a href="#work">work</a></li>
+      <li><a href="#contact">contact</a></li>
     </ul>
   </nav>
 
   <main>
 
-    <!-- ── HERO ──────────────────────────────── -->
-    <section id="hero">
-      <p class="hero-label">Portfolio &middot; Mill Creek, WA</p>
-      <h1 class="hero-name">SUDHIR<span class="dot">.</span></h1>
-      <div class="hero-meta">
-        <p class="hero-location">Henry M. Jackson High School &middot; Rising Senior</p>
-        <div class="hero-tags">
-          <span class="tag">Robotics</span>
-          <span class="tag">FRC Team 2910</span>
-          <span class="tag">Musician</span>
-        </div>
-        <a href="#about" class="hero-cta">
-          Explore
-          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-            <path d="M1 5h10M7 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-      <span class="hero-scroll-hint">Scroll to explore</span>
-    </section>
-
-    <!-- ── ABOUT ─────────────────────────────── -->
+    <!-- ── ABOUT ─────────────────────────────────── -->
     <section id="about">
-      <div class="about-image-wrap">
-        <img id="uniquepictureID" src="image_2.jpg" alt="Picture of Sudhir" />
+
+      <!-- sidebar -->
+      <div class="profile-sidebar slide-in-left">
+        <div class="profile-img-wrap">
+          <img id="profileImg" src="image_1.jpg" alt="Sudhir Chebiyyam" />
+        </div>
+        <div class="profile-sidebar-text" style="display:contents;">
+          <span class="profile-name-label">Sudhir Chebiyyam</span>
+          <span class="profile-affiliation">B.S. Computer Science<br>Carnegie Mellon University</span>
+        </div>
+        <div class="profile-social-links">
+          <a href="https://github.com/sudhir-c" class="social-btn" target="_blank" rel="noopener">
+            <span class="icon">⌥</span> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/sudhir-chebiyyam-479505288/" class="social-btn" target="_blank" rel="noopener">
+            <span class="icon">⌥</span> LinkedIn
+          </a>
+          <a href="https://www.instagram.com/sudhirchebiyyam/" class="social-btn" target="_blank" rel="noopener">
+            <span class="icon">⌥</span> Instagram
+          </a>
+        </div>
       </div>
-      <div class="about-content">
-        <p class="section-eyebrow">About Me</p>
-        <h2 class="section-title">Hey,<br>I'm Sudhir.</h2>
-        <p class="about-bio">I'm a rising senior at Henry M Jackson high school in Mill Creek, WA. In my free time, you can find me with my school's robotics team, or practicing one of the two instruments I play.</p>
-        <div class="about-stats">
-          <div class="stat">
-            <span class="stat-num">2</span>
-            <span class="stat-label">Instruments</span>
+
+      <!-- content -->
+      <div class="about-content slide-in-right">
+        <h1 class="about-greeting"><span class="hi">Hi,</span> I'm Sudhir.</h1>
+        <p class="about-bio">
+          Hi, I'm Sudhir Chebiyyam, an undergrad at Carnegie Mellon University studying Computer
+          Science. I am broadly interested in intelligent robotics because of my experience in high
+          school with <a href="https://www.thebluealliance.com/team/2910/history" target="_blank" rel="noopener">FRC 2910</a>.
+          In my free time, I enjoy playing tenor saxophone and clarinet, watching sports, and working out.
+        </p>
+        <p class="interests-label">Interests</p>
+        <div class="tags">
+          <span class="tag">computer science</span>
+          <span class="tag">intelligent robotics</span>
+          <span class="tag">FRC 2910</span>
+          <span class="tag">tenor saxophone</span>
+          <span class="tag">clarinet</span>
+          <span class="tag">sports</span>
+          <span class="tag">fitness</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── ROBOTICS ───────────────────────────────── -->
+    <section id="robotics" class="section-shell">
+      <div class="section-inner">
+        <div class="section-eyebrow slide-in-up">
+          <span class="eyebrow-label">FRC 2910 · Jack in the Bot</span>
+          <span class="eyebrow-rule"></span>
+          <span class="eyebrow-sub">competition robotics</span>
+        </div>
+        <div class="robot-grid">
+          <div class="robot-cell slide-in-up">
+            <img src="image_2.jpg" alt="FRC 2910 robot on competition field" />
           </div>
-          <div class="stat">
-            <span class="stat-num">2910</span>
-            <span class="stat-label">FRC Team</span>
+          <div class="robot-cell slide-in-up delay-1">
+            <img src="image_3.jpg" alt="FRC 2910 robot climbing" />
           </div>
-          <div class="stat">
-            <span class="stat-num">WA</span>
-            <span class="stat-label">Location</span>
+          <div class="robot-cell slide-in-up delay-2">
+            <img src="image_5.jpg" alt="FRC 2910 robot in workshop" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── FEATURED VIDEOS ────────────────────── -->
-    <section id="featured">
-      <div class="featured-inner">
-        <div class="featured-header">
-          <p class="section-eyebrow">Robotics</p>
-          <h2 class="section-title">YouTube<br>Features</h2>
+    <!-- ── YOUTUBE FEATURES ───────────────────────── -->
+    <section id="work" class="section-shell">
+      <div class="section-inner">
+        <div class="section-eyebrow slide-in-up">
+          <span class="eyebrow-label">YouTube Features</span>
+          <span class="eyebrow-rule"></span>
+          <span class="eyebrow-sub">behind the bumpers</span>
         </div>
-        <div class="videos-stack">
 
-          <article class="video-card">
-            <div class="video-embed">
-              <iframe
-                src="https://www.youtube.com/embed/AefyOa_38F8"
-                title="2910 Jack in the Bot | Behind the Bumpers | FRC CRESCENDO Robot"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="video-info">
-              <span class="video-num">01</span>
-              <span class="video-badge">FRC CRESCENDO</span>
-              <h3 class="video-title">2910 Jack in the Bot &middot; Behind the Bumpers</h3>
-              <p class="video-desc">FRC CRESCENDO Robot featured on the official First Robotics Competition YouTube channel.</p>
-            </div>
-          </article>
+        <div class="slide-in-up delay-1">
+          <div class="video-tabs-row">
+            <button
+              class="vtab active"
+              data-id="AefyOa_38F8"
+              data-badge="FRC CRESCENDO"
+              data-title="2910 Jack in the Bot · Behind the Bumpers · CRESCENDO">
+              CRESCENDO
+            </button>
+            <button
+              class="vtab"
+              data-id="7ETEf__nD1I"
+              data-badge="Charged Up"
+              data-title="2910 Jack in the Bot · Behind the Bumpers · Charged Up">
+              Charged Up
+            </button>
+          </div>
 
-          <article class="video-card">
-            <div class="video-embed">
-              <iframe
-                src="https://www.youtube.com/embed/7ETEf__nD1I"
-                title="Behind the Bumpers | 2910 Jack in the Bot | Charged Up Robot"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="video-info">
-              <span class="video-num">02</span>
-              <span class="video-badge">Charged Up</span>
-              <h3 class="video-title">2910 Jack in the Bot &middot; Behind the Bumpers</h3>
-              <p class="video-desc">Charged Up Robot featured on the official First Robotics Competition YouTube channel.</p>
-            </div>
-          </article>
+          <div class="video-stage">
+            <iframe
+              id="videoFrame"
+              src="https://www.youtube.com/embed/AefyOa_38F8"
+              title="2910 Jack in the Bot | Behind the Bumpers | FRC CRESCENDO Robot"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
 
+          <div class="video-caption">
+            <span class="video-badge" id="videoBadge">FRC CRESCENDO</span>
+            <span class="video-caption-title" id="videoTitle">2910 Jack in the Bot · Behind the Bumpers · CRESCENDO</span>
+          </div>
         </div>
+
       </div>
     </section>
 
-    <!-- ── CONNECT ────────────────────────────── -->
-    <section id="connect">
-      <p class="section-eyebrow">Say Hello</p>
-      <h2 class="section-title">Connect</h2>
-      <div class="connect-grid">
+    <!-- ── CONTACT ────────────────────────────────── -->
+    <section id="contact" class="section-shell">
+      <div class="section-inner">
+        <div class="section-eyebrow slide-in-up">
+          <span class="eyebrow-label">Contact</span>
+          <span class="eyebrow-rule"></span>
+          <span class="eyebrow-sub">get in touch</span>
+        </div>
 
-        <a href="https://github.com/sudhir-c" class="connect-card" target="_blank" rel="noopener noreferrer">
-          <span class="connect-arrow" aria-hidden="true">&#x2197;</span>
-          <span class="connect-platform">Code</span>
-          <span class="connect-name">GitHub</span>
-          <span class="connect-handle">sudhir-c</span>
-        </a>
-
-        <a href="https://www.instagram.com/sudhirchebiyyam/" class="connect-card" target="_blank" rel="noopener noreferrer">
-          <span class="connect-arrow" aria-hidden="true">&#x2197;</span>
-          <span class="connect-platform">Social</span>
-          <span class="connect-name">Instagram</span>
-          <span class="connect-handle">@sudhirchebiyyam</span>
-        </a>
-
-        <a href="https://open.spotify.com/user/316lm4ngsvodfkyboemotlpszu2y?si=77776c3bb7bc4db6" class="connect-card" target="_blank" rel="noopener noreferrer">
-          <span class="connect-arrow" aria-hidden="true">&#x2197;</span>
-          <span class="connect-platform">Music</span>
-          <span class="connect-name">Spotify</span>
-          <span class="connect-handle">Sudhir's profile</span>
-        </a>
+        <div class="contact-cards">
+          <a href="https://github.com/sudhir-c" class="contact-card slide-in-up" target="_blank" rel="noopener">
+            <span class="card-arrow">↗</span>
+            <span class="card-platform">Code</span>
+            <span class="card-name">GitHub</span>
+            <span class="card-handle">sudhir-c</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sudhir-chebiyyam-479505288/" class="contact-card slide-in-up delay-1" target="_blank" rel="noopener">
+            <span class="card-arrow">↗</span>
+            <span class="card-platform">Professional</span>
+            <span class="card-name">LinkedIn</span>
+            <span class="card-handle">sudhir-chebiyyam</span>
+          </a>
+          <a href="https://www.instagram.com/sudhirchebiyyam/" class="contact-card slide-in-up delay-2" target="_blank" rel="noopener">
+            <span class="card-arrow">↗</span>
+            <span class="card-platform">Social</span>
+            <span class="card-name">Instagram</span>
+            <span class="card-handle">@sudhirchebiyyam</span>
+          </a>
+        </div>
 
       </div>
     </section>
@@ -759,39 +705,81 @@
   </main>
 
   <footer>
-    <span class="footer-text">Sudhir Chebiyyam &middot; Mill Creek, WA</span>
-    <span class="footer-text">Henry M. Jackson High School</span>
+    <span class="footer-txt">Sudhir Chebiyyam · Carnegie Mellon University</span>
+    <span class="footer-txt">B.S. Computer Science</span>
   </footer>
 
   <script>
-    // ── IMAGE CYCLING ─────────────────────────
-    let imageIndex = 0;
-    const images = ["image_2.jpg", "image_3.jpg", "image_4.jpg"];
-    imageChanger();
+    // ── PROFILE IMAGE CYCLING ──────────────────────
+    const profileImg   = document.getElementById('profileImg');
+    const profileImgs  = ['image_1.jpg', 'image_4.jpg'];
+    let   pIdx         = 0;
 
-    function imageChanger() {
-      if (imageIndex >= images.length) imageIndex = 0;
-      const img = document.getElementById("uniquepictureID");
-      img.style.opacity = "0";
+    setInterval(() => {
+      profileImg.style.opacity = '0';
       setTimeout(() => {
-        img.src = images[imageIndex];
-        img.style.opacity = "1";
-        imageIndex++;
-      }, 350);
-      setTimeout(imageChanger, 3000);
-    }
+        pIdx = (pIdx + 1) % profileImgs.length;
+        profileImg.src = profileImgs[pIdx];
+        profileImg.style.opacity = '1';
+      }, 400);
+    }, 4500);
 
-    // ── SCROLL-TRIGGERED CARD FADE-IN ─────────
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+    // ── VIDEO TABS ─────────────────────────────────
+    const vtabs      = document.querySelectorAll('.vtab');
+    const videoFrame = document.getElementById('videoFrame');
+    const videoBadge = document.getElementById('videoBadge');
+    const videoTitle = document.getElementById('videoTitle');
+
+    vtabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        vtabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        videoFrame.src    = `https://www.youtube.com/embed/${tab.dataset.id}`;
+        videoBadge.textContent = tab.dataset.badge;
+        videoTitle.textContent = tab.dataset.title;
+      });
+    });
+
+    // ── SCROLL-TRIGGERED SLIDE ANIMATIONS ──────────
+    const animated = document.querySelectorAll(
+      '.slide-in-left, .slide-in-right, .slide-in-up'
+    );
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add("visible"), i * 180);
-          revealObserver.unobserve(entry.target);
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.08 });
 
-    document.querySelectorAll(".video-card").forEach(card => revealObserver.observe(card));
+    animated.forEach(el => io.observe(el));
+
+    // trigger anything already in viewport on load
+    requestAnimationFrame(() => {
+      animated.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.95) {
+          el.classList.add('visible');
+        }
+      });
+    });
+
+    // ── NAV ACTIVE STATE ON SCROLL ─────────────────
+    const sections  = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-links a');
+
+    const navIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const link = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(s => navIO.observe(s));
   </script>
 
 </body>
