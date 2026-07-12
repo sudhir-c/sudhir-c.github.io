@@ -307,6 +307,83 @@
       color: var(--muted);
     }
 
+    /* ─── PROJECTS ────────────────────────────── */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 1.35fr);
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 200ms ease, background 200ms ease;
+    }
+    .project-card:hover {
+      border-color: var(--accent-border);
+      background: var(--surface-2);
+    }
+
+    .project-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .project-kicker {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .project-description {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    .project-link {
+      width: fit-content;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent-border);
+    }
+    .project-link:hover {
+      border-bottom-color: var(--accent);
+      opacity: 1;
+    }
+
+    .project-media {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #050505;
+    }
+
+    .project-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* ─── ROBOTICS GALLERY ────────────────────── */
     .robot-grid {
       display: grid;
@@ -524,6 +601,7 @@
 
       .section-inner { padding: 3rem 1.5rem; }
 
+      .project-card { grid-template-columns: 1fr; }
       .robot-grid { grid-template-columns: 1fr 1fr; }
       .contact-cards { grid-template-columns: 1fr; }
 
@@ -544,6 +622,7 @@
     <a href="#about" class="nav-name">Sudhir Chebiyyam</a>
     <ul class="nav-links">
       <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
       <li><a href="#robots">robots</a></li>
       <li><a href="#videos">videos</a></li>
       <li><a href="#contact">contact</a></li>
@@ -588,6 +667,43 @@
         </p>
       </div>
 
+    </section>
+
+    <!-- ── PROJECTS ──────────────────────────────── -->
+    <section id="projects" class="section-shell">
+      <div class="section-inner">
+        <div class="section-eyebrow slide-in-up">
+          <span class="eyebrow-label">Projects</span>
+          <span class="eyebrow-rule"></span>
+          <span class="eyebrow-sub">robot learning</span>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card slide-in-up delay-1">
+            <div class="project-meta">
+              <span class="project-kicker">SO-101</span>
+              <h2 class="project-title">Robot Manipulation Policies</h2>
+              <p class="project-description">Training manipulation policies on an SO-101 robotic arm.</p>
+              <a
+                class="project-link"
+                href="https://github.com/sudhir-c/so101-journal/tree/main"
+                target="_blank"
+                rel="noopener">
+                View GitHub repo ↗
+              </a>
+            </div>
+            <div class="project-media">
+              <video
+                src="assets/videos/so-101-manipulation.mp4"
+                controls
+                muted
+                playsinline
+                preload="metadata">
+              </video>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- ── ROBOTICS ───────────────────────────────── -->
