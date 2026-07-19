@@ -178,37 +178,6 @@
       line-height: 1.6;
     }
 
-    .profile-social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-      width: 100%;
-      margin-top: 0.25rem;
-    }
-
-    .social-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 0.75rem;
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      text-decoration: none;
-      font-size: 0.69rem;
-      letter-spacing: 0.04em;
-      transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
-    }
-    .social-btn:hover {
-      border-color: var(--accent-border);
-      color: var(--accent);
-      background: var(--accent-dim);
-      opacity: 1;
-    }
-    .social-btn .icon {
-      font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-
     /* content */
     .about-content {
       padding-top: 0.25rem;
@@ -335,14 +304,6 @@
       gap: 0.7rem;
     }
 
-    .project-kicker {
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
     .project-title {
       font-size: 1.05rem;
       font-weight: 700;
@@ -377,11 +338,13 @@
       background: #050505;
     }
 
-    .project-media video {
+    .project-media video,
+    .project-media iframe {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      border: none;
     }
 
     /* ─── ROBOTICS GALLERY ────────────────────── */
@@ -484,7 +447,7 @@
     /* ─── CONTACT ─────────────────────────────── */
     .contact-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 0.85rem;
       margin-top: 0.5rem;
     }
@@ -596,8 +559,6 @@
       }
       .profile-name-label,
       .profile-affiliation { text-align: left; }
-      .profile-social-links { flex-direction: row; flex-wrap: wrap; }
-      .social-btn { flex: 1; min-width: 120px; }
 
       .section-inner { padding: 3rem 1.5rem; }
 
@@ -643,17 +604,6 @@
           <span class="profile-name-label">Sudhir Chebiyyam</span>
           <span class="profile-affiliation">B.S. Computer Science<br>Carnegie Mellon University</span>
         </div>
-        <div class="profile-social-links">
-          <a href="https://github.com/sudhir-c" class="social-btn" target="_blank" rel="noopener">
-            <span class="icon">⌥</span> GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/sudhir-chebiyyam-479505288/" class="social-btn" target="_blank" rel="noopener">
-            <span class="icon">⌥</span> LinkedIn
-          </a>
-          <a href="https://www.instagram.com/sudhirchebiyyam/" class="social-btn" target="_blank" rel="noopener">
-            <span class="icon">⌥</span> Instagram
-          </a>
-        </div>
       </div>
 
       <!-- content -->
@@ -675,13 +625,11 @@
         <div class="section-eyebrow slide-in-up">
           <span class="eyebrow-label">Projects</span>
           <span class="eyebrow-rule"></span>
-          <span class="eyebrow-sub">robot learning</span>
         </div>
 
         <div class="project-list">
           <article class="project-card slide-in-up delay-1">
             <div class="project-meta">
-              <span class="project-kicker">SO-101</span>
               <h2 class="project-title">Robot Manipulation Policies</h2>
               <p class="project-description">Training manipulation policies on an SO-101 robotic arm.</p>
               <a
@@ -700,6 +648,33 @@
                 playsinline
                 preload="metadata">
               </video>
+            </div>
+          </article>
+
+          <article class="project-card slide-in-up delay-2">
+            <div class="project-meta">
+              <h2 class="project-title">FRC 2910</h2>
+              <p class="project-description">
+                2025 FRC world champs! Developed Java-based autonomous systems including finite state
+                machines, AprilTag localization, trajectory control, and driver-assistance features for
+                competitive robotics.
+              </p>
+              <a
+                class="project-link"
+                href="https://github.com/FRCTeam2910"
+                target="_blank"
+                rel="noopener">
+                View GitHub repo ↗
+              </a>
+            </div>
+            <div class="project-media">
+              <iframe
+                src="https://www.youtube.com/embed/OcYb_mau730"
+                title="FRC 2910 project video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+              </iframe>
             </div>
           </article>
         </div>
@@ -803,12 +778,6 @@
             <span class="card-platform">Professional</span>
             <span class="card-name">LinkedIn</span>
             <span class="card-handle">sudhir-chebiyyam</span>
-          </a>
-          <a href="https://www.instagram.com/sudhirchebiyyam/" class="contact-card slide-in-up delay-2" target="_blank" rel="noopener">
-            <span class="card-arrow">↗</span>
-            <span class="card-platform">Social</span>
-            <span class="card-name">Instagram</span>
-            <span class="card-handle">@sudhirchebiyyam</span>
           </a>
         </div>
 
