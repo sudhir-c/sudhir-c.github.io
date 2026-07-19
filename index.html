@@ -209,6 +209,62 @@
       opacity: 1;
     }
 
+    .intro-contact-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 180px));
+      gap: 0.65rem;
+      margin-top: 1.25rem;
+    }
+
+    .intro-contact-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.12rem;
+      padding: 0.85rem 0.95rem;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color 200ms ease, transform 200ms ease, background 200ms ease;
+      position: relative;
+    }
+    .intro-contact-card:hover {
+      border-color: var(--accent-border);
+      background: var(--surface-2);
+      transform: translateY(-2px);
+      opacity: 1;
+    }
+
+    .intro-contact-card .card-platform {
+      font-size: 0.56rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .intro-contact-card .card-name {
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .intro-contact-card .card-handle {
+      font-size: 0.64rem;
+      color: var(--muted);
+      margin-top: 0.05rem;
+    }
+    .intro-contact-card .card-arrow {
+      position: absolute;
+      top: 0.7rem; right: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      transition: color 200ms ease, transform 200ms ease;
+    }
+    .intro-contact-card:hover .card-arrow {
+      color: var(--accent);
+      transform: translate(2px, -2px);
+    }
+
     .interests-label {
       font-size: 0.65rem;
       font-weight: 600;
@@ -297,7 +353,6 @@
       border-color: var(--accent-border);
       background: var(--surface-2);
     }
-
     .project-meta {
       display: flex;
       flex-direction: column;
@@ -330,6 +385,12 @@
       opacity: 1;
     }
 
+    .project-link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
     .project-media {
       aspect-ratio: 16 / 9;
       width: 100%;
@@ -339,7 +400,8 @@
     }
 
     .project-media video,
-    .project-media iframe {
+    .project-media iframe,
+    .project-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -444,74 +506,6 @@
       color: var(--text-dim);
     }
 
-    /* ─── CONTACT ─────────────────────────────── */
-    .contact-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.85rem;
-      margin-top: 0.5rem;
-    }
-
-    .contact-card {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      padding: 1.25rem 1.25rem 1.5rem;
-      border: 1px solid var(--border);
-      text-decoration: none;
-      color: var(--text);
-      background: var(--surface);
-      transition: border-color 200ms ease, transform 200ms ease, background 200ms ease;
-      position: relative;
-    }
-    .contact-card:hover {
-      border-color: var(--accent-border);
-      background: var(--surface-2);
-      transform: translateY(-3px);
-      opacity: 1;
-    }
-    .contact-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 200ms ease;
-    }
-    .contact-card:hover::after { transform: scaleX(1); }
-
-    .card-platform {
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .card-name {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-    .card-handle {
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-top: 0.1rem;
-    }
-    .card-arrow {
-      position: absolute;
-      top: 1.1rem; right: 1.1rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-      transition: color 200ms ease, transform 200ms ease;
-    }
-    .contact-card:hover .card-arrow {
-      color: var(--accent);
-      transform: translate(2px, -2px);
-    }
-
     /* ─── FOOTER ──────────────────────────────── */
     footer {
       border-top: 1px solid var(--border);
@@ -564,13 +558,13 @@
 
       .project-card { grid-template-columns: 1fr; }
       .robot-grid { grid-template-columns: 1fr 1fr; }
-      .contact-cards { grid-template-columns: 1fr; }
 
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.4rem; text-align: center; }
     }
 
     @media (max-width: 480px) {
       .nav-links { display: none; }
+      .intro-contact-cards { grid-template-columns: 1fr; }
       .robot-grid { grid-template-columns: 1fr; }
       .about-greeting { font-size: 1.3rem; }
     }
@@ -586,7 +580,6 @@
       <li><a href="#projects">projects</a></li>
       <li><a href="#robots">robots</a></li>
       <li><a href="#videos">videos</a></li>
-      <li><a href="#contact">contact</a></li>
     </ul>
   </nav>
 
@@ -598,7 +591,7 @@
       <!-- sidebar -->
       <div class="profile-sidebar slide-in-left">
         <div class="profile-img-wrap">
-          <img id="profileImg" src="image_4.jpg" alt="Sudhir Chebiyyam" />
+          <img id="profileImg" src="assets/images/profile-photo.png" alt="Sudhir Chebiyyam" />
         </div>
         <div class="profile-sidebar-text" style="display:contents;">
           <span class="profile-name-label">Sudhir Chebiyyam</span>
@@ -615,6 +608,20 @@
           school with <a href="https://www.thebluealliance.com/team/2910/history" target="_blank" rel="noopener">FRC 2910</a>.
           In my free time, I enjoy playing tenor saxophone and clarinet, watching sports, and working out.
         </p>
+        <div class="intro-contact-cards">
+          <a href="https://github.com/sudhir-c" class="intro-contact-card" target="_blank" rel="noopener">
+            <span class="card-arrow">↗</span>
+            <span class="card-platform">Code</span>
+            <span class="card-name">GitHub</span>
+            <span class="card-handle">sudhir-c</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sudhir-chebiyyam-479505288/" class="intro-contact-card" target="_blank" rel="noopener">
+            <span class="card-arrow">↗</span>
+            <span class="card-platform">Professional</span>
+            <span class="card-name">LinkedIn</span>
+            <span class="card-handle">sudhir-chebiyyam</span>
+          </a>
+        </div>
       </div>
 
     </section>
@@ -675,6 +682,32 @@
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen>
               </iframe>
+            </div>
+          </article>
+
+          <article class="project-card slide-in-up delay-3">
+            <div class="project-meta">
+              <h2 class="project-title">Personal Apps</h2>
+              <p class="project-description">A pair of personal software projects for task tracking and media journaling.</p>
+              <div class="project-link-row">
+                <a
+                  class="project-link"
+                  href="https://github.com/sudhir-c/todo-app"
+                  target="_blank"
+                  rel="noopener">
+                  todo-app ↗
+                </a>
+                <a
+                  class="project-link"
+                  href="https://github.com/sudhir-c/media-journal"
+                  target="_blank"
+                  rel="noopener">
+                  media-journal ↗
+                </a>
+              </div>
+            </div>
+            <div class="project-media">
+              <img src="assets/images/personal-apps.png" alt="Todo app and media journal app icons" />
             </div>
           </article>
         </div>
@@ -752,33 +785,6 @@
             <span class="video-badge" id="videoBadge">FRC CRESCENDO</span>
             <span class="video-caption-title" id="videoTitle">2910 Jack in the Bot · Behind the Bumpers · CRESCENDO</span>
           </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── CONTACT ────────────────────────────────── -->
-    <section id="contact" class="section-shell">
-      <div class="section-inner">
-        <div class="section-eyebrow slide-in-up">
-          <span class="eyebrow-label">Contact</span>
-          <span class="eyebrow-rule"></span>
-          <span class="eyebrow-sub">get in touch</span>
-        </div>
-
-        <div class="contact-cards">
-          <a href="https://github.com/sudhir-c" class="contact-card slide-in-up" target="_blank" rel="noopener">
-            <span class="card-arrow">↗</span>
-            <span class="card-platform">Code</span>
-            <span class="card-name">GitHub</span>
-            <span class="card-handle">sudhir-c</span>
-          </a>
-          <a href="https://www.linkedin.com/in/sudhir-chebiyyam-479505288/" class="contact-card slide-in-up delay-1" target="_blank" rel="noopener">
-            <span class="card-arrow">↗</span>
-            <span class="card-platform">Professional</span>
-            <span class="card-name">LinkedIn</span>
-            <span class="card-handle">sudhir-chebiyyam</span>
-          </a>
         </div>
 
       </div>
